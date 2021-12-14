@@ -145,4 +145,23 @@ class AdminModel extends Model
             );
         }
     }
+
+    public static function getAllUnverifiedDoctors()
+    {
+        $query = "SELECT * FROM view_doctors WHERE d_verify = 0";
+
+        return parent::get($query);
+    }
+
+    public static function verifyDoctor(int $d_id)
+    {
+        $query = "UPDATE ems_doctors SET d_verify = 1 WHERE d_id = :d_id;";
+
+        return parent::execute(
+            $query,
+            [
+                ":d_id"         => $d_id
+            ]
+        );
+    }
 }
