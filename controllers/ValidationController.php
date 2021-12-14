@@ -377,3 +377,33 @@ function _validate_email_viewuser(&$email, &$_email, &$messages, &$has_err)
         $messages['data']['email'] = $email;
     }
 }
+
+
+/**
+ * 
+ * Delete User Validation Controller
+ * 
+ */
+
+function _validate_email_deleteuser(&$email, &$_email, &$messages, &$has_err)
+{
+    if (!empty($_email) && !filter_var($_email, FILTER_VALIDATE_EMAIL)) {
+        $messages["errors"]['email'] = "Email is not valid";
+        $has_err = true;
+    } else {
+        $email = validate_input($_email);
+    }
+}
+
+function _validate_utype_deleteuser(&$utype, &$_utype, &$messages, &$has_err)
+{
+    if (empty($_utype)) {
+        $messages["errors"]['utype'] = "User Type is required";
+        $has_err = true;
+    } else if (preg_match("/(doctor|patient|emanager|admin)/", $_utype) != 1) {
+        $messages["errors"]['utype'] = "User Type is invalid";
+        $has_err = true;
+    } else {
+        $utype = validate_input($_utype);
+    }
+}

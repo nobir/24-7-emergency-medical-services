@@ -100,6 +100,14 @@ class PatientModel extends Model
 
     public static function deleteUser(int $patient_id)
     {
+        $query = "CALL delete_patient(:p_id);";
+
+        return parent::execute(
+            $query,
+            [
+                ":p_id"          => $patient_id
+            ]
+        );
     }
 }
 

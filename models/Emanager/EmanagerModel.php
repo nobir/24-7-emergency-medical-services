@@ -102,13 +102,11 @@ class EmanagerModel extends Model
     {
         $query = "CALL delete_emanager(:em_id);";
 
-        $results = parent::get(
+        return parent::execute(
             $query,
             [
                 ":em_id"          => $emanager_id
             ]
         );
-
-        return count($results) > 0 ? $results[0] : null;
     }
 }

@@ -51,6 +51,16 @@ const toggleDarkMode = (dark_mode_button) => {
     }
 };
 
+const confirmDelete = (delete_button) => {
+    if (delete_button) {
+        if (confirm("Are you sure you want to delete the user?")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
 function initialize() {
     // enable darkmode if cookie exist
     if (getCookie("darkmode") === "true") {

@@ -31,11 +31,13 @@ if (isset($_GET['d_id'])) {
         "data" => []
     ];
 
-    $d_id = $_GET['d_id'];
+    $d_id = "";
 
-    if (!is_numeric($d_id)) {
+    if (!is_numeric($_GET['d_id'])) {
         $messages['unsuccess'] = "Invalid doctor id";
         $has_err = true;
+    } else {
+        $d_id = $_GET['d_id'];
     }
 
     if (!$has_err) {

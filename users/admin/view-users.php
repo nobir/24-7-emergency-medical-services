@@ -110,7 +110,7 @@ if (!_get_messages_data('users') && empty($users)) {
                                         <td><?php echo date("d/m/Y", strtotime($user['u_dob'])); ?></td>
                                         <td><?php echo $user['u_type']; ?></td>
                                         <td>
-                                            <a href="<?php echo _get_url("users/admin/delete-user.php?email=" . urlencode($user['u_email']) . "&utype=" . urlencode($user['u_type'])); ?>" class="btn btn-danger">Delete</a>
+                                            <a href="<?php echo _get_url("controllers/DeleteUserController.php?email=" . urlencode($user['u_email']) . "&utype=" . urlencode($user['u_type'])); ?>" class="btn btn-danger" onclick="confirmDelete(this);">Delete</a>
                                         </td>
                                     </tr>
 

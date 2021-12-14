@@ -93,14 +93,12 @@ class AdminModel extends Model
     {
         $query = "CALL delete_admin(:a_id);";
 
-        $results = parent::get(
+        return parent::execute(
             $query,
             [
                 ":a_id"          => $admin_id
             ]
         );
-
-        return count($results) > 0 ? $results[0] : null;
     }
 
     public static function getAllUsers($name = "", $email = "")

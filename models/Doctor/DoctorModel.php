@@ -105,14 +105,12 @@ class DoctorModel extends Model
     {
         $query = "CALL delete_doctor(:d_id);";
 
-        $results = parent::get(
+        return parent::execute(
             $query,
             [
                 ":d_id"          => $doctor_id
             ]
         );
-
-        return count($results) > 0 ? $results[0] : null;
     }
 }
 
