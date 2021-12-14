@@ -31,53 +31,53 @@ header_section("EMS | Registration Page");
         </div>
 
         <div class="col-12 col-md-8 col-lg-7">
-            <form id="registration-form" action="<?php echo _get_url("controllers/RegistrationController.php"); ?>" method="post" class="needs-validation">
+            <form id="registration-form" action="<?php echo _get_url("controllers/RegistrationController.php"); ?>" method="post" class="needs-validation" onchange="validate_registration(this);">
                 <div class="row mb-3 has-validation">
                     <label for="name" class="col-sm-3 col-form-label">Name</label>
                     <div class="col-sm-9">
-                        <input id="name" type="text" name="name" class="form-control<?php echo _get_messages_css_class_name('name'); ?>" value="<?php echo _get_messages_data('name'); ?>" placeholder="Sasuke Uchiha">
+                        <input id="name" type="text" name="name" class="form-control<?php echo _get_messages_css_class_name('name'); ?>" value="<?php echo _get_messages_data('name'); ?>" placeholder="Sasuke Uchiha" onkeyup="validate_name(this);">
 
-                        <?php if (_get_messages_errors('name')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('name'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('name'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                        <input id="email" type="text" name="email" class="form-control<?php echo _get_messages_css_class_name('email'); ?>" value="<?php echo _get_messages_data('email'); ?>" placeholder="sasuke@uchiha.com">
+                        <input id="email" type="text" name="email" class="form-control<?php echo _get_messages_css_class_name('email'); ?>" value="<?php echo _get_messages_data('email'); ?>" placeholder="sasuke@uchiha.com" onkeyup="validate_email(this);">
 
-                        <?php if (_get_messages_errors('email')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('email'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('email'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="phone" class="col-sm-3 col-form-label">Phone</label>
                     <div class="col-sm-9">
-                        <input id="phone" type="text" name="phone" class="form-control<?php echo _get_messages_css_class_name('phone'); ?>" value="<?php echo _get_messages_data('phone'); ?>" placeholder="+88016xxxxxxxx">
+                        <input id="phone" type="text" name="phone" class="form-control<?php echo _get_messages_css_class_name('phone'); ?>" value="<?php echo _get_messages_data('phone'); ?>" placeholder="+88016xxxxxxxx" onkeyup="validate_phoneNumber(this);">
 
-                        <?php if (_get_messages_errors('phone')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('phone'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('phone'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="password" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-9">
-                        <input id="password" type="password" name="password" class="form-control<?php echo _get_messages_css_class_name('password'); ?>" value="<?php echo _get_messages_data('password'); ?>">
+                        <input id="password" type="password" name="password" class="form-control<?php echo _get_messages_css_class_name('password'); ?>" value="<?php echo _get_messages_data('password'); ?>" onkeyup="validate_password(this);">
 
-                        <?php if (_get_messages_errors('password')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('password'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('password'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="cpassword" class="col-sm-3 col-form-label">Confirm Password</label>
                     <div class="col-sm-9">
-                        <input id="cpassword" type="password" name="cpassword" class="form-control<?php echo _get_messages_css_class_name('cpassword'); ?>" value="<?php echo _get_messages_data('cpassword'); ?>">
+                        <input id="cpassword" type="password" name="cpassword" class="form-control<?php echo _get_messages_css_class_name('cpassword'); ?>" value="<?php echo _get_messages_data('cpassword'); ?>" onkeyup="validate_cpassword(this);">
 
-                        <?php if (_get_messages_errors('cpassword')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('cpassword'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('cpassword'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="dob" class="col-sm-3 col-form-label">Date of Birth</label>
                     <div class="col-sm-9">
-                        <input id="dob" type="date" name="dob" class="form-control<?php echo _get_messages_css_class_name('dob'); ?>" value="<?php echo _get_messages_data('dob'); ?>">
+                        <input id="dob" type="date" name="dob" class="form-control<?php echo _get_messages_css_class_name('dob'); ?>" value="<?php echo _get_messages_data('dob'); ?>" onchange="validate_dob(this);">
 
-                        <?php if (_get_messages_errors('dob')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('dob'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('dob'); ?></div>
                     </div>
                 </div>
                 <fieldset class="row mb-3">
@@ -98,7 +98,7 @@ header_section("EMS | Registration Page");
 
                         <input class="<?php echo trim(_get_messages_css_class_name('gender')); ?>" type="hidden">
 
-                        <?php if (_get_messages_errors('gender')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('gender'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('gender'); ?></div>
 
                     </div>
                 </fieldset>
@@ -120,49 +120,49 @@ header_section("EMS | Registration Page");
 
                         <input class="<?php echo trim(_get_messages_css_class_name('utype')); ?>" type="hidden">
 
-                        <?php if (_get_messages_errors('utype')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('utype'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('utype'); ?></div>
 
                     </div>
                 </fieldset>
                 <div class="row mb-3 has-validation">
                     <label for="area" class="col-sm-3 col-form-label">Area</label>
                     <div class="col-sm-9">
-                        <input id="area" type="text" name="area" class="form-control<?php echo _get_messages_css_class_name('area'); ?>" value="<?php echo _get_messages_data('area'); ?>" placeholder="e.g Moddho Pikepara">
+                        <input id="area" type="text" name="area" class="form-control<?php echo _get_messages_css_class_name('area'); ?>" value="<?php echo _get_messages_data('area'); ?>" placeholder="e.g Moddho Pikepara" onkeyup="validate_area(this);">
 
-                        <?php if (_get_messages_errors('area')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('area'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('area'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="subdistrict" class="col-sm-3 col-form-label">Sub District</label>
                     <div class="col-sm-9">
-                        <input id="subdistrict" type="text" name="subdistrict" class="form-control<?php echo _get_messages_css_class_name('subdistrict'); ?>" value="<?php echo _get_messages_data('subdistrict'); ?>" placeholder="e.g Mirpur">
+                        <input id="subdistrict" type="text" name="subdistrict" class="form-control<?php echo _get_messages_css_class_name('subdistrict'); ?>" value="<?php echo _get_messages_data('subdistrict'); ?>" placeholder="e.g Mirpur" onkeyup="validate_subdistrict(this);">
 
-                        <?php if (_get_messages_errors('subdistrict')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('subdistrict'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('subdistrict'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="district" class="col-sm-3 col-form-label">District</label>
                     <div class="col-sm-9">
-                        <input id="district" type="text" name="district" class="form-control<?php echo _get_messages_css_class_name('district'); ?>" value="<?php echo _get_messages_data('district'); ?>" placeholder="e.g Dhaka">
+                        <input id="district" type="text" name="district" class="form-control<?php echo _get_messages_css_class_name('district'); ?>" value="<?php echo _get_messages_data('district'); ?>" placeholder="e.g Dhaka" onkeyup="validate_district(this);">
 
-                        <?php if (_get_messages_errors('district')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('district'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('district'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <label for="division" class="col-sm-3 col-form-label">Division</label>
                     <div class="col-sm-9">
-                        <input id="division" type="text" name="division" class="form-control<?php echo _get_messages_css_class_name('division'); ?>" value="<?php echo _get_messages_data('division'); ?>" placeholder="e.g Dhaka">
+                        <input id="division" type="text" name="division" class="form-control<?php echo _get_messages_css_class_name('division'); ?>" value="<?php echo _get_messages_data('division'); ?>" placeholder="e.g Dhaka" onkeyup="validate_division(this);">
 
-                        <?php if (_get_messages_errors('division')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('division'); ?></div><?php endif; ?>
+                        <div class="invalid-feedback"><?php echo _get_messages_errors('division'); ?></div>
                     </div>
                 </div>
                 <div class="row mb-3 has-validation">
                     <div class="col-sm-9 offset-sm-3">
                         <div class="form-check">
-                            <input id="privacy" type="checkbox" name="privacy" class="form-check-input<?php echo _get_messages_css_class_name('privacy'); ?>" <?php echo _get_messages_data('privacy') === "on" ? " checked" : ""; ?>>
+                            <input id="privacy" type="checkbox" name="privacy" class="form-check-input<?php echo _get_messages_css_class_name('privacy'); ?>" <?php echo _get_messages_data('privacy') === "on" ? " checked" : ""; ?> onchange="validate_privacy(this);">
                             <label for="privacy" class="form-check-label"><a href="" target="_blank" class="link-primary">Terms and Conditions</a></label>
 
-                            <?php if (_get_messages_errors('privacy')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('privacy'); ?></div><?php endif; ?>
+                            <div class="invalid-feedback"><?php echo _get_messages_errors('privacy'); ?></div>
                         </div>
                     </div>
                 </div>
