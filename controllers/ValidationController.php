@@ -359,3 +359,21 @@ function _validate_retypepass_change(&$retypepass, &$_retypepass, &$newpass, &$m
         $messages['data']['retypepass'] = $retypepass;
     }
 }
+
+
+/**
+ * 
+ * View User Validation Controller
+ * 
+ */
+
+function _validate_email_viewuser(&$email, &$_email, &$messages, &$has_err)
+{
+    if (!empty($_email) && !filter_var($_email, FILTER_VALIDATE_EMAIL)) {
+        $messages["errors"]['email'] = "Email is not valid";
+        $has_err = true;
+    } else {
+        $email = validate_input($_email);
+        $messages['data']['email'] = $email;
+    }
+}

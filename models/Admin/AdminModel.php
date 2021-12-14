@@ -102,4 +102,47 @@ class AdminModel extends Model
 
         return count($results) > 0 ? $results[0] : null;
     }
+
+    public static function getAllUsers($name = "", $email = "")
+    {
+        if (empty($name) && !empty($email)) {
+            $query = "SELECT * FROM ems_users WHERE u_email = :u_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":u_email"     => "$email"
+                ]
+            );
+        } else if (empty($email) && !empty($name)) {
+            $query = "SELECT * FROM ems_users WHERE u_name LIKE :u_name";
+
+            return parent::get(
+                $query,
+                [
+                    ":u_name"      => "%$name%"
+                ]
+            );
+        } else if (!empty($email) && !empty($name)) {
+            $query = "SELECT * FROM ems_users WHERE u_name LIKE :u_name AND u_email = :u_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":u_name"      => "%$name%",
+                    ":u_email"     => "$email"
+                ]
+            );
+        } else {
+            $query = "SELECT * FROM ems_users WHERE u_name LIKE :u_name OR u_email = :u_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":u_name"      => "%$name%",
+                    ":u_email"     => "$email"
+                ]
+            );
+        }
+    }
 }
