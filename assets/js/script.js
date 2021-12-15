@@ -11,7 +11,69 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleDarkMode(dark_mode_2_button);
 });
 
-$(document).ready(() => {});
+const validate_ambulance_phone = (phone) => {
+    // return;
+    const err_phone = phone.parentNode.querySelector(".invalid-feedback");
+    // console.log(err_phone);
+
+    let request = $.post(
+        window.location.origin +
+            "/Project/controllers/AmbulancePhoneDuplicationAJAXController.php",
+        {
+            phone: phone.value,
+            ambulancephoneajax: "true",
+        }
+    );
+
+    request.done((response) => {
+        let messages = JSON.parse(response);
+
+        // console.log(messages);
+        // return;
+
+        if (messages.data.phone) {
+            phone.classList.remove("is-invalid");
+            phone.classList.add("is-valid");
+            err_phone.innerText = "";
+        } else if (messages.errors) {
+            phone.classList.remove("is-valid");
+            phone.classList.add("is-invalid");
+            err_phone.innerText = messages.errors.phone;
+        }
+    });
+};
+
+const validate_hospital_email = (email) => {
+    // return;
+    const err_email = email.parentNode.querySelector(".invalid-feedback");
+    // console.log(err_email);
+
+    let request = $.post(
+        window.location.origin +
+            "/Project/controllers/HospitalEmailDuplicationAJAXController.php",
+        {
+            email: email.value,
+            hospitalemailajax: "true",
+        }
+    );
+
+    request.done((response) => {
+        let messages = JSON.parse(response);
+
+        // console.log(messages);
+        // return;
+
+        if (messages.data.email) {
+            email.classList.remove("is-invalid");
+            email.classList.add("is-valid");
+            err_email.innerText = "";
+        } else if (messages.errors) {
+            email.classList.remove("is-valid");
+            email.classList.add("is-invalid");
+            err_email.innerText = messages.errors.email;
+        }
+    });
+};
 
 const validate_currentpass = (currentpass) => {
     // console.log(currentpass);
@@ -74,6 +136,7 @@ const validate_newpass = (newpass) => {
         }
     });
 };
+
 const validate_retypepass = (retypepass) => {
     // console.log(retypepass);
 
