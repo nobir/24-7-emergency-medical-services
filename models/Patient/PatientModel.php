@@ -109,6 +109,100 @@ class PatientModel extends Model
             ]
         );
     }
+
+    public static function getAllDoctors($name = "", $email = "")
+    {
+        if (empty($name) && !empty($email)) {
+            $query = "SELECT * FROM view_doctors WHERE d_email = :d_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":d_email"     => "$email"
+                ]
+            );
+        } else if (empty($email) && !empty($name)) {
+            $query = "SELECT * FROM view_doctors WHERE d_name LIKE :d_name";
+
+            return parent::get(
+                $query,
+                [
+                    ":d_name"      => "%$name%"
+                ]
+            );
+        } else if (!empty($email) && !empty($name)) {
+            $query = "SELECT * FROM view_doctors WHERE d_name LIKE :d_name AND d_email = :d_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":d_name"      => "%$name%",
+                    ":d_email"     => "$email"
+                ]
+            );
+        } else {
+            $query = "SELECT * FROM view_doctors WHERE d_name LIKE :d_name OR d_email = :d_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":d_name"      => "%$name%",
+                    ":d_email"     => "$email"
+                ]
+            );
+        }
+    }
+
+    public static function getAllHospitals($name = "", $email = "")
+    {
+        if (empty($name) && !empty($email)) {
+            $query = "SELECT * FROM view_hospitals WHERE h_email = :h_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":h_email"     => $email
+                ]
+            );
+        } else if (!empty($name) && empty($email)) {
+            $query = "SELECT * FROM view_hospitals WHERE h_name LIKE :h_name";
+
+            return parent::get(
+                $query,
+                [
+                    ":h_name"      => "%$name%"
+                ]
+            );
+        } else if (!empty($email) && !empty($name)) {
+            $query = "SELECT * FROM view_hospitals WHERE h_name LIKE :h_name AND h_email = :h_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":h_name"      => "%$name%",
+                    ":h_email"     => $email
+                ]
+            );
+        } else {
+            $query = "SELECT * FROM view_hospitals WHERE 1";
+
+            return parent::get($query);
+        }
+    }
+
+    public static function requestAppointment($reason, $d_id, $p_id)
+    {
+        $query = "CALL insert_appointment(:reason, :d_id, :p_id);";
+
+        return parent::execute(
+            $query,
+            [
+                ":reason"         => $reason,
+                ":d_id"           => $d_id,
+                ":p_id"           => $p_id
+            ]
+        );
+    }
 }
 
 // _var_dump(PatientModel::isDuplicateEmail('khuko@patient.com'));
@@ -128,3 +222,5 @@ class PatientModel extends Model
 // $temp_patient->setPDivision('Dhaka');
 
 // _var_dump(PatientModel::createUser($temp_patient));
+
+// _var_dump(PatientModel::getAllDoctors("df", ""));
