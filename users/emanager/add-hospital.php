@@ -42,6 +42,81 @@ if (_get_session_val('utype') != "emanager") {
 
             <div class="col-md-<?php echo _get_is_logged_in() ? "9" : "12"; ?>">
 
+                <div class="">
+
+                    <?php _success_unsuccess_messages(); ?>
+
+                </div>
+
+                <form id="add-ambulance-form" action="<?php echo _get_url("controllers/AddHospitalController.php"); ?>" method="POST" class="need-validation">
+                    <div class="row">
+                        <div class="row mb-3 has-validation">
+                            <label for="name" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input id="name" type="text" name="name" class="form-control<?php echo _get_messages_css_class_name('name'); ?>" value="<?php echo _get_messages_data('name'); ?>" placeholder="Sasuke Uchiha" onkeyup="validate_name(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('name'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input id="email" type="text" name="email" class="form-control<?php echo _get_messages_css_class_name('email'); ?>" value="<?php echo _get_messages_data('email'); ?>" placeholder="sasuke@uchiha.com" onkeyup="validate_hospital_email(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('email'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                            <div class="col-sm-9">
+                                <input id="phone" type="text" name="phone" class="form-control<?php echo _get_messages_css_class_name('phone'); ?>" value="<?php echo _get_messages_data('phone'); ?>" placeholder="+88016xxxxxxxx" onkeyup="validate_phoneNumber(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('phone'); ?></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 has-validation">
+                            <label for="area" class="col-sm-3 col-form-label">Area</label>
+                            <div class="col-sm-9">
+                                <input id="area" type="text" name="area" class="form-control<?php echo _get_messages_css_class_name('area'); ?>" value="<?php echo _get_messages_data('area'); ?>" placeholder="e.g Moddho Pikepara" onkeyup="validate_area(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('area'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <label for="subdistrict" class="col-sm-3 col-form-label">Sub District</label>
+                            <div class="col-sm-9">
+                                <input id="subdistrict" type="text" name="subdistrict" class="form-control<?php echo _get_messages_css_class_name('subdistrict'); ?>" value="<?php echo _get_messages_data('subdistrict'); ?>" placeholder="e.g Mirpur" onkeyup="validate_subdistrict(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('subdistrict'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <label for="district" class="col-sm-3 col-form-label">District</label>
+                            <div class="col-sm-9">
+                                <input id="district" type="text" name="district" class="form-control<?php echo _get_messages_css_class_name('district'); ?>" value="<?php echo _get_messages_data('district'); ?>" placeholder="e.g Dhaka" onkeyup="validate_district(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('district'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <label for="division" class="col-sm-3 col-form-label">Division</label>
+                            <div class="col-sm-9">
+                                <input id="division" type="text" name="division" class="form-control<?php echo _get_messages_css_class_name('division'); ?>" value="<?php echo _get_messages_data('division'); ?>" placeholder="e.g Dhaka" onkeyup="validate_division(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('division'); ?></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 has-validation">
+                            <div class="col-sm-3 mb-3 text-sm-end"></div>
+                            <div class="col-sm-3 mb-3 text-sm-start">
+                                <button id="add-hospital-btn" type="submit" name="add-hospital" class="btn btn-success">Add Hospital</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
 
         </div>
