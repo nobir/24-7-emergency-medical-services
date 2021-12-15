@@ -163,10 +163,11 @@ const toggleDarkMode = (dark_mode_button) => {
 };
 
 const confirmDelete = (event, delete_button) => {
+    event.preventDefault();
+
     if (delete_button) {
-        event.preventDefault();
         if (confirm("Are you sure you want to delete?")) {
-            $(delete_button).click();
+            window.location.href = delete_button.getAttribute("href");
         } else {
             return false;
         }
