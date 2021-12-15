@@ -115,7 +115,7 @@ if (_get_messages_data('users') === false) {
                                         <td><?php echo date("d/m/Y", strtotime($user['u_dob'])); ?></td>
                                         <td><?php echo $user['u_type']; ?></td>
                                         <td class="text-center">
-                                            <a href="<?php echo _get_url("controllers/DeleteUserController.php?email=" . urlencode($user['u_email']) . "&utype=" . urlencode($user['u_type'])); ?>" class="btn btn-danger mb-3" onclick="confirmDelete(this);">Delete</a>
+                                            <a href="<?php echo _get_url("controllers/DeleteUserController.php?email=" . urlencode($user['u_email']) . "&utype=" . urlencode($user['u_type'])); ?>" class="btn btn-danger mb-3" onclick="confirmDelete(event, this);">Delete</a>
                                             <a href="<?php echo _get_url("users/admin/edit-user.php?email=" . urlencode($user['u_email']) . "&utype=" . urlencode($user['u_type'])); ?>" class="btn btn-success mb-3">Edit</a>
                                         </td>
                                     </tr>

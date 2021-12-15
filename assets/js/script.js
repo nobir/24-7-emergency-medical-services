@@ -16,7 +16,8 @@ $(document).ready(() => {});
 const validate_currentpass = (currentpass) => {
     // console.log(currentpass);
 
-    const err_currentpass = currentpass.parentNode.querySelector(".invalid-feedback");
+    const err_currentpass =
+        currentpass.parentNode.querySelector(".invalid-feedback");
     // console.log(err_currentpass);
 
     let request = $.post(
@@ -36,12 +37,11 @@ const validate_currentpass = (currentpass) => {
             currentpass.classList.remove("is-invalid");
             currentpass.classList.add("is-valid");
             err_currentpass.innerText = "";
-        } else if(messages.errors){
+        } else if (messages.errors) {
             currentpass.classList.remove("is-valid");
             currentpass.classList.add("is-invalid");
             err_currentpass.innerText = messages.errors.currentpass;
         }
-
     });
 };
 const validate_newpass = (newpass) => {
@@ -67,19 +67,21 @@ const validate_newpass = (newpass) => {
             newpass.classList.remove("is-invalid");
             newpass.classList.add("is-valid");
             err_newpass.innerText = "";
-        } else if(messages.errors){
+        } else if (messages.errors) {
             newpass.classList.remove("is-valid");
             newpass.classList.add("is-invalid");
             err_newpass.innerText = messages.errors.newpass;
         }
-
     });
 };
 const validate_retypepass = (retypepass) => {
     // console.log(retypepass);
 
-    const err_retypepass = retypepass.parentNode.querySelector(".invalid-feedback");
-    const newpass = retypepass.parentNode.parentNode.parentNode.querySelector("input[name=newpass]");
+    const err_retypepass =
+        retypepass.parentNode.querySelector(".invalid-feedback");
+    const newpass = retypepass.parentNode.parentNode.parentNode.querySelector(
+        "input[name=newpass]"
+    );
     // console.log(err_retypepass);
     // console.log(newpass);
 
@@ -101,12 +103,11 @@ const validate_retypepass = (retypepass) => {
             retypepass.classList.remove("is-invalid");
             retypepass.classList.add("is-valid");
             err_retypepass.innerText = "";
-        } else if(messages.errors){
+        } else if (messages.errors) {
             retypepass.classList.remove("is-valid");
             retypepass.classList.add("is-invalid");
             err_retypepass.innerText = messages.errors.retypepass;
         }
-
     });
 };
 
@@ -161,10 +162,11 @@ const toggleDarkMode = (dark_mode_button) => {
     }
 };
 
-const confirmDelete = (delete_button) => {
+const confirmDelete = (event, delete_button) => {
     if (delete_button) {
+        event.preventDefault();
         if (confirm("Are you sure you want to delete?")) {
-            return true;
+            $(delete_button).click();
         } else {
             return false;
         }
