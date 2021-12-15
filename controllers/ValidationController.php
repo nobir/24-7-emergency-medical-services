@@ -407,3 +407,20 @@ function _validate_utype_deleteuser(&$utype, &$_utype, &$messages, &$has_err)
         $utype = validate_input($_utype);
     }
 }
+
+/**
+ * 
+ * View Ambulance Validation Controller
+ * 
+ */
+
+function _validate_phone_viewambulance(&$phone, &$_phone, &$messages, &$has_err)
+{
+    if (!empty($_phone) && preg_match("/^(\+88)?01[2-9]{1}[0-9]{8}$/", $_phone) != 1) {
+        $messages["errors"]['phone'] = "Invalid Phone! valid is +8801234567890, 01234567890";
+        $has_err = true;
+    } else {
+        $phone = validate_input($_phone);
+        $messages['data']['phone'] = $phone;
+    }
+}
