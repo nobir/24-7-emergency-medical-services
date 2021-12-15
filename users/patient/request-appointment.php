@@ -42,6 +42,39 @@ if (_get_session_val('utype') != "patient") {
 
             <div class="col-md-<?php echo _get_is_logged_in() ? "9" : "12"; ?>">
 
+                <div class="">
+
+                    <?php _success_unsuccess_messages(); ?>
+
+                </div>
+
+                <form id="request-appointment-form" action="<?php echo _get_url("controllers/AppointmentController.php"); ?>" method="POST" class="need-validation">
+                    <div class="row">
+                        <div class="row mb-3 has-validation">
+                            <label for="docemail" class="col-sm-3 col-form-label">Doctor Email</label>
+                            <div class="col-sm-9">
+                                <input id="docemail" type="text" name="docemail" class="form-control<?php echo _get_messages_css_class_name('docemail'); ?>" value="<?php echo _get_messages_data('docemail'); ?>" placeholder="sasuke@uchiha.com" onkeyup="validate_email(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('docemail'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <label for="reason" class="col-sm-3 col-form-label">Reason</label>
+                            <div class="col-sm-9">
+                                <input id="reason" type="text" name="reason" class="form-control<?php echo _get_messages_css_class_name('reason'); ?>" value="<?php echo _get_messages_data('reason'); ?>" placeholder="Heart problem" onkeyup="validate_name(this);">
+
+                                <div class="invalid-feedback"><?php echo _get_messages_errors('reason'); ?></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 has-validation">
+                            <div class="col-sm-3 mb-3 text-sm-end"></div>
+                            <div class="col-sm-3 mb-3 text-sm-start">
+                                <button id="appointment-btn" type="submit" name="appointment" class="btn btn-success">Request Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
 
         </div>
@@ -49,22 +82,3 @@ if (_get_session_val('utype') != "patient") {
 </main>
 
 <?php footer_section(); ?>
-
-<!--
-<div class="col-md-<?php echo _get_is_logged_in() ? "8" : "12"; ?>">
-    <form action="<?php echo _get_url("controller/AppointmentController.php"); ?>" method="POST">
-        <div class="mb-3 input-group">
-            <label for="docemail" class="col-sm-4 col-form-label">Doctor Email</label>
-            <input type="text" name="docemail" class="form-control mx-1" id="docemail" value="<?php echo isset($messages['data']['docemail']) ? $messages['data']['docemail'] : ""; ?>">
-        </div>
-        <div class="row mb-3 input-group">
-            <div class="col-sm-4 text-end mx-auto">
-                <input class="btn btn-success" type="reset" value="Reset">
-            </div>
-            <div class="col-sm-8 text-start mx-auto">
-                <input class="btn btn-success" name="appointment" type="submit" value="Request Appointment">
-            </div>
-        </div>
-    </form>
-</div>
--->
