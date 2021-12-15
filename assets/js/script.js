@@ -4,20 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initialize();
 
     const form = getElemById("deleteuserform");
-    // const canvasmenu = getElemById("canvasmenu");
-    const delete_button = getElemById("deleteuser");
     const dark_mode_1_button = getElemById("dark_mode_1");
     const dark_mode_2_button = getElemById("dark_mode_2");
-
-    if (delete_button) {
-        delete_button.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            if (confirm("Are you sure you want to delete ?")) {
-                form.submit();
-            }
-        });
-    }
 
     toggleDarkMode(dark_mode_1_button);
     toggleDarkMode(dark_mode_2_button);
@@ -175,7 +163,7 @@ const toggleDarkMode = (dark_mode_button) => {
 
 const confirmDelete = (delete_button) => {
     if (delete_button) {
-        if (confirm("Are you sure you want to delete the user?")) {
+        if (confirm("Are you sure you want to delete?")) {
             return true;
         } else {
             return false;
