@@ -744,6 +744,33 @@ DELIMITER
 CALL insert_hospital('Ar Raha Hospital', 'ar.raha@hospital.com', '+8801789456126','Ashkona', 'Uttara', 'Dhaka', 'Dhaka');
 
 --
+-- Update Hospital
+--
+
+DELIMITER
+    $$
+CREATE OR REPLACE PROCEDURE update_hospital(
+    IN hospital_id INT(10),
+    IN hospital_name VARCHAR(100),
+    IN hospital_email VARCHAR(50),
+    IN hospital_phone VARCHAR(20),
+    IN hospital_area VARCHAR(255),
+    IN hospital_subdistrict VARCHAR(50),
+    IN hospital_district VARCHAR(50),
+    IN hospital_division VARCHAR(50)
+)
+BEGIN
+    SET @address_id := (SELECT ad_id FROM view_hospitals WHERE h_id = hospital_id);
+
+    UPDATE ems_addresses SET ad_area = hospital_area, ad_subdistrict = hospital_subdistrict, ad_district = hospital_district, ad_division = hospital_division WHERE ad_id = @address_id;
+
+    UPDATE ems_hospitals SET h_name = hospital_name, h_email = hospital_email, h_phone = hospital_phone WHERE h_id = hospital_id;
+
+END $$
+DELIMITER
+    ;
+
+--
 -- Delete Hospital
 --
 
@@ -784,6 +811,32 @@ DELIMITER
     ;
 
 CALL insert_ambulance('+8801789456126','Sector 6', 'Uttara', 'Dhaka', 'Dhaka');
+
+--
+-- Update Ambulance
+--
+
+DELIMITER
+    $$
+CREATE OR REPLACE PROCEDURE update_ambulance(
+    IN ambulance_id INT(10),
+    IN ambulance_phone VARCHAR(20),
+    IN ambulance_area VARCHAR(255),
+    IN ambulance_subdistrict VARCHAR(50),
+    IN ambulance_district VARCHAR(50),
+    IN ambulance_division VARCHAR(50)
+)
+BEGIN
+    SET @address_id := (SELECT ad_id FROM view_ambulances WHERE am_id = ambulance_id);
+
+    UPDATE ems_addresses SET ad_area = ambulance_area, ad_subdistrict = ambulance_subdistrict, ad_district = ambulance_district, ad_division = ambulance_division WHERE ad_id = @address_id;
+
+    UPDATE ems_ambulances SET am_phone = ambulance_phone WHERE am_id = ambulance_id;
+
+END $$
+DELIMITER
+    ;
+
 
 --
 -- Delete Ambulance

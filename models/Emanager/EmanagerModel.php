@@ -109,4 +109,228 @@ class EmanagerModel extends Model
             ]
         );
     }
+
+    public static function isDuplicateAmbulancePhone($am_phone)
+    {
+        $query = "SELECT * FROM view_ambulances WHERE am_phone = :am_phone";
+
+        $results = parent::get(
+            $query,
+            [
+                ":am_phone"          => $am_phone
+            ]
+        );
+
+        return count($results) > 0 ? true : false;
+    }
+
+    public static function isDuplicateHospitalEmail($h_email)
+    {
+        $query = "SELECT * FROM view_hospitals WHERE h_email = :h_email";
+
+        $results = parent::get(
+            $query,
+            [
+                ":h_email"          => $h_email
+            ]
+        );
+
+        return count($results) > 0 ? true : false;
+    }
+
+    public static function createAmbulance($ambulance)
+    {
+        $query = "CALL insert_ambulance(:am_phone, :am_area, :am_subdistrict, :am_district, :am_division);";
+
+        return parent::execute(
+            $query,
+            [
+                ":am_phone"          => $ambulance->getAmPhone(),
+                ":am_area"           => $ambulance->getAmArea(),
+                ":am_subdistrict"    => $ambulance->getAmSubdistrict(),
+                ":am_district"       => $ambulance->getAmDistrict(),
+                ":am_division"       => $ambulance->getAmDivision(),
+            ]
+        );
+    }
+
+    public static function createHospital($hospital)
+    {
+        $query = "CALL insert_hospital(:h_name, :h_email, :h_phone, :h_area, :h_subdistrict, :h_district, :h_division);";
+
+        return parent::execute(
+            $query,
+            [
+                ":h_name"           => $hospital->getHName(),
+                ":h_email"          => $hospital->getHEmail(),
+                ":h_phone"          => $hospital->getHPhone(),
+                ":h_area"           => $hospital->getHArea(),
+                ":h_subdistrict"    => $hospital->getHSubdistrict(),
+                ":h_district"       => $hospital->getHDistrict(),
+                ":h_division"       => $hospital->getHDivision(),
+            ]
+        );
+    }
+
+    public static function getAllAmbulances($area = "", $phone = "")
+    {
+        if (empty($area) && !empty($phone)) {
+            $query = "SELECT * FROM view_ambulances WHERE am_phone = :am_phone";
+
+            return parent::get(
+                $query,
+                [
+                    ":am_phone"     => $phone
+                ]
+            );
+        } else if (!empty($area) && empty($phone)) {
+            $query = "SELECT * FROM view_ambulances WHERE am_area LIKE :am_area";
+
+            return parent::get(
+                $query,
+                [
+                    ":am_area"      => "%$area%"
+                ]
+            );
+        } else if (!empty($phone) && !empty($area)) {
+            $query = "SELECT * FROM view_ambulances WHERE am_area LIKE :am_area AND am_phone = :am_phone";
+
+            return parent::get(
+                $query,
+                [
+                    ":am_area"      => "%$area%",
+                    ":am_phone"     => $phone
+                ]
+            );
+        } else {
+            $query = "SELECT * FROM view_ambulances WHERE 1";
+
+            return parent::get($query);
+        }
+    }
+
+    public static function getAllHospitals($area = "", $email = "")
+    {
+        if (empty($area) && !empty($email)) {
+            $query = "SELECT * FROM view_hospitals WHERE h_email = :h_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":h_email"     => $email
+                ]
+            );
+        } else if (!empty($area) && empty($email)) {
+            $query = "SELECT * FROM view_hospitals WHERE h_area LIKE :h_area";
+
+            return parent::get(
+                $query,
+                [
+                    ":h_area"      => "%$area%"
+                ]
+            );
+        } else if (!empty($email) && !empty($area)) {
+            $query = "SELECT * FROM view_hospitals WHERE h_area LIKE :h_area AND h_email = :h_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":h_area"      => "%$area%",
+                    ":h_email"     => $email
+                ]
+            );
+        } else {
+            $query = "SELECT * FROM view_hospitals WHERE 1";
+
+            return parent::get($query);
+        }
+    }
+
+    public static function getAmbulanceById(int $id)
+    {
+        $query = "SELECT * FROM view_ambulances WHERE am_id = :am_id";
+
+        $results = parent::get(
+            $query,
+            [
+                ":am_id"          => $id
+            ]
+        );
+
+        return count($results) > 0 ? $results[0] : null;
+    }
+
+    public static function getHospitalById(int $id)
+    {
+        $query = "SELECT * FROM view_hospitals WHERE h_id = :h_id";
+
+        $results = parent::get(
+            $query,
+            [
+                ":h_id"          => $id
+            ]
+        );
+
+        return count($results) > 0 ? $results[0] : null;
+    }
+
+    public static function updateAmbulance($ambulance)
+    {
+        $query = "CALL update_ambulance(:am_id, :am_phone, :am_area, :am_subdistrict, :am_district, :am_division);";
+
+        return parent::execute(
+            $query,
+            [
+                ":am_id"                => $ambulance->getAmId(),
+                ":am_phone"             => $ambulance->getAmPhone(),
+                ":am_area"              => $ambulance->getAmArea(),
+                ":am_subdistrict"       => $ambulance->getAmSubdistrict(),
+                ":am_district"          => $ambulance->getAmDistrict(),
+                ":am_division"          => $ambulance->getAmDivision(),
+            ]
+        );
+    }
+
+    public static function updateHospital($hospital)
+    {
+        $query = "CALL update_hospital(:h_id, :h_name, :h_email, :h_phone, :h_area, :h_subdistrict, :h_district, :h_division);";
+
+        return parent::execute(
+            $query,
+            [
+                ":h_id"                => $hospital->getHId(),
+                ":h_name"              => $hospital->getHName(),
+                ":h_email"             => $hospital->getHEmail(),
+                ":h_phone"             => $hospital->getHPhone(),
+                ":h_area"              => $hospital->getHArea(),
+                ":h_subdistrict"       => $hospital->getHSubdistrict(),
+                ":h_district"          => $hospital->getHDistrict(),
+                ":h_division"          => $hospital->getHDivision(),
+            ]
+        );
+    }
+
+    public static function deleteAmbulance(int $id)
+    {
+        $query = "CALL delete_ambulance(:am_id);";
+
+        return parent::execute(
+            $query,
+            [
+                ":am_id"          => $id
+            ]
+        );
+    }
+
+    public static function deleteHospital(int $id)
+    {
+        $query = "CALL delete_hospital(:h_id);";
+
+        return parent::execute(
+            $query,
+            [
+                ":h_id"          => $id
+            ]
+        );
+    }
 }
