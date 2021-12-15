@@ -26,11 +26,16 @@ if (_get_session_val('utype') != "admin") {
 
 $users = [];
 
-if (_get_messages_data('users')) {
+if (_get_messages_data('users') !== false) {
     $users = _get_messages_data('users');
+} else {
+    $messages = _get_messages();
+    $messages['data']['users'] = false;
+    _set_session_val("messages", $messages);
+    // _var_dump(_get_ messages_data('users'));
 }
 
-if (!_get_messages_data('users') && empty($users)) {
+if (_get_messages_data('users') === false) {
     require_once _ROOT_DIR . "models/Admin/AdminModel.php";
 
     $users = AdminModel::getAllUsers();
@@ -137,68 +142,3 @@ if (!_get_messages_data('users') && empty($users)) {
 </main>
 
 <?php footer_section(); ?>
-
-<!--
-<div class="col-md-<?php echo _get_is_logged_in() ? "8" : "12"; ?>">
-    <form action="<?php echo _get_url("controller/ViewUsersController.php"); ?>" method="POST">
-        <div class="row">
-            <div class="col">
-                <input type="text" name="name" class="form-control" value="<?php echo isset($messages['data']['name']) ? $messages['data']['name'] : ""; ?>" placeholder="Name..">
-            </div>
-            <div class="col">
-                <input type="text" name="email" class="form-control" value="<?php echo isset($messages['data']['email']) ? $messages['data']['email'] : ""; ?>" placeholder="Email..">
-            </div>
-            <div class="col">
-                <input type="submit" name="viewusers" class="form-control btn btn-success" value="Search">
-            </div>
-        </div>
-    </form>
-    <hr>
-    <div class="d-flex justify-content-center align-items-center">
-        <table class="table table-<?php echo _CONFIG['THEME_COLOR']; ?> table-striped">
-
-            <?php if (count($users) > 0) : ?>
-
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Dob</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-
-            <?php endif; ?>
-
-            <tbody>
-
-                <?php foreach ($users as $user) : ?>
-
-                    <tr>
-                        <td><?php echo $user['name']; ?></td>
-                        <td><?php echo $user['email']; ?></td>
-                        <td><?php echo ucfirst($user['gender']); ?></td>
-                        <td><?php echo date("d/m/Y", strtotime($user['dob'])); ?></td>
-                        <td><?php echo $user['utype']; ?></td>
-                        <td>
-                            <a href="<?php echo _get_url("user/admin/delete-user.php?email=" . urlencode($user['email'])); ?>" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-                <?php if (count($users) == 0) : ?>
-
-                    <tr class="text-center">
-                        <td colspan="6">No Users Found</td>
-                    </tr>
-
-                <?php endif; ?>
-
-            </tbody>
-        </table>
-    </div>
-</div>
--->

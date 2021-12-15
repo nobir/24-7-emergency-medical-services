@@ -51,6 +51,9 @@ if (isset($_POST['viewusers'])) {
         require_once _ROOT_DIR . "models/Admin/AdminModel.php";
 
         $messages['data']['users'] = AdminModel::getAllUsers($name, $email);
+        if (count($messages['data']['users']) === 0) {
+            $messages['errors']['users'] = false;
+        }
         _set_session_val("messages", $messages);
         header("Location: " . _get_url("users/admin/view-users.php"));
     } else {

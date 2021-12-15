@@ -109,10 +109,10 @@ class AdminModel extends Model
             return parent::get(
                 $query,
                 [
-                    ":u_email"     => "$email"
+                    ":u_email"     => $email
                 ]
             );
-        } else if (empty($email) && !empty($name)) {
+        } else if (!empty($name) && empty($email)) {
             $query = "SELECT * FROM ems_users WHERE u_name LIKE :u_name";
 
             return parent::get(
@@ -128,19 +128,13 @@ class AdminModel extends Model
                 $query,
                 [
                     ":u_name"      => "%$name%",
-                    ":u_email"     => "$email"
+                    ":u_email"     => $email
                 ]
             );
         } else {
-            $query = "SELECT * FROM ems_users WHERE u_name LIKE :u_name OR u_email = :u_email";
+            $query = "SELECT * FROM ems_users WHERE 1";
 
-            return parent::get(
-                $query,
-                [
-                    ":u_name"      => "%$name%",
-                    ":u_email"     => "$email"
-                ]
-            );
+            return parent::get($query);
         }
     }
 
