@@ -43,25 +43,25 @@ if (!_get_is_logged_in()) {
                     <div class="row mb-3 has-validation">
                         <label for="currentpass" class="col-sm-3 col-form-label">Current Password</label>
                         <div class="col-sm-9">
-                            <input id="currentpass" type="password" name="currentpass" class="form-control<?php echo _get_messages_css_class_name('currentpass'); ?>" value="<?php echo _get_messages_data('currentpass'); ?>">
+                            <input id="currentpass" type="password" name="currentpass" class="form-control<?php echo _get_messages_css_class_name('currentpass'); ?>" value="<?php echo _get_messages_data('currentpass'); ?>" onkeyup="validate_currentpass(this);">
 
-                            <?php if (_get_messages_errors('currentpass')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('currentpass'); ?></div><?php endif; ?>
+                            <div class="invalid-feedback"><?php echo _get_messages_errors('currentpass'); ?></div>
                         </div>
                     </div>
                     <div class="row mb-3 has-validation">
                         <label for="newpass" class="col-sm-3 col-form-label">New Password</label>
                         <div class="col-sm-9">
-                            <input id="newpass" type="password" name="newpass" class="form-control<?php echo _get_messages_css_class_name('newpass'); ?>" value="<?php echo _get_messages_data('newpass'); ?>">
+                            <input id="newpass" type="password" name="newpass" class="form-control<?php echo _get_messages_css_class_name('newpass'); ?>" value="<?php echo _get_messages_data('newpass'); ?>" onkeyup="validate_newpass(this);">
 
-                            <?php if (_get_messages_errors('newpass')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('newpass'); ?></div><?php endif; ?>
+                            <div class="invalid-feedback"><?php echo _get_messages_errors('newpass'); ?></div>
                         </div>
                     </div>
                     <div class="row mb-3 has-validation">
                         <label for="retypepass" class="col-sm-3 col-form-label">Retype Password</label>
                         <div class="col-sm-9">
-                            <input id="retypepass" type="password" name="retypepass" class="form-control<?php echo _get_messages_css_class_name('retypepass'); ?>" value="<?php echo _get_messages_data('retypepass'); ?>">
+                            <input id="retypepass" type="password" name="retypepass" class="form-control<?php echo _get_messages_css_class_name('retypepass'); ?>" value="<?php echo _get_messages_data('retypepass'); ?>" onkeyup="validate_retypepass(this);">
 
-                            <?php if (_get_messages_errors('retypepass')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('retypepass'); ?></div><?php endif; ?>
+                            <div class="invalid-feedback"><?php echo _get_messages_errors('retypepass'); ?></div>
                         </div>
                     </div>
                     <div class="row mb-3 has-validation">

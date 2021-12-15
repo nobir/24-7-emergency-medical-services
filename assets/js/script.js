@@ -1,5 +1,127 @@
 "use strict";
 
+document.addEventListener("DOMContentLoaded", () => {
+    initialize();
+
+    const form = getElemById("deleteuserform");
+    // const canvasmenu = getElemById("canvasmenu");
+    const delete_button = getElemById("deleteuser");
+    const dark_mode_1_button = getElemById("dark_mode_1");
+    const dark_mode_2_button = getElemById("dark_mode_2");
+
+    if (delete_button) {
+        delete_button.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            if (confirm("Are you sure you want to delete ?")) {
+                form.submit();
+            }
+        });
+    }
+
+    toggleDarkMode(dark_mode_1_button);
+    toggleDarkMode(dark_mode_2_button);
+});
+
+$(document).ready(() => {});
+
+const validate_currentpass = (currentpass) => {
+    // console.log(currentpass);
+
+    const err_currentpass = currentpass.parentNode.querySelector(".invalid-feedback");
+    // console.log(err_currentpass);
+
+    let request = $.post(
+        window.location.origin +
+            "/Project/controllers/ChangePasswordAJAXController.php",
+        {
+            currentpass: currentpass.value,
+            changepasswordajax: "true",
+        }
+    );
+
+    request.done((response) => {
+        // console.log(JSON.parse(response));
+        let messages = JSON.parse(response);
+
+        if (messages.data.currentpass) {
+            currentpass.classList.remove("is-invalid");
+            currentpass.classList.add("is-valid");
+            err_currentpass.innerText = "";
+        } else if(messages.errors){
+            currentpass.classList.remove("is-valid");
+            currentpass.classList.add("is-invalid");
+            err_currentpass.innerText = messages.errors.currentpass;
+        }
+
+    });
+};
+const validate_newpass = (newpass) => {
+    // console.log(newpass);
+
+    const err_newpass = newpass.parentNode.querySelector(".invalid-feedback");
+    // console.log(err_newpass);
+
+    let request = $.post(
+        window.location.origin +
+            "/Project/controllers/ChangePasswordAJAXController.php",
+        {
+            newpass: newpass.value,
+            changepasswordajax: "true",
+        }
+    );
+
+    request.done((response) => {
+        // console.log(JSON.parse(response));
+        let messages = JSON.parse(response);
+
+        if (messages.data.newpass) {
+            newpass.classList.remove("is-invalid");
+            newpass.classList.add("is-valid");
+            err_newpass.innerText = "";
+        } else if(messages.errors){
+            newpass.classList.remove("is-valid");
+            newpass.classList.add("is-invalid");
+            err_newpass.innerText = messages.errors.newpass;
+        }
+
+    });
+};
+const validate_retypepass = (retypepass) => {
+    // console.log(retypepass);
+
+    const err_retypepass = retypepass.parentNode.querySelector(".invalid-feedback");
+    const newpass = retypepass.parentNode.parentNode.parentNode.querySelector("input[name=newpass]");
+    // console.log(err_retypepass);
+    // console.log(newpass);
+
+    let request = $.post(
+        window.location.origin +
+            "/Project/controllers/ChangePasswordAJAXController.php",
+        {
+            newpass: newpass.value,
+            retypepass: retypepass.value,
+            changepasswordajax: "true",
+        }
+    );
+
+    request.done((response) => {
+        // console.log(JSON.parse(response));
+        let messages = JSON.parse(response);
+
+        if (messages.data.retypepass) {
+            retypepass.classList.remove("is-invalid");
+            retypepass.classList.add("is-valid");
+            err_retypepass.innerText = "";
+        } else if(messages.errors){
+            retypepass.classList.remove("is-valid");
+            retypepass.classList.add("is-invalid");
+            err_retypepass.innerText = messages.errors.retypepass;
+        }
+
+    });
+};
+
 const setCookie = (cname, cvalue, exdays) => {
     const d = new Date();
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -100,7 +222,10 @@ const validate_email = (email) => {
         email.classList.remove("is-valid");
         email.classList.add("is-invalid");
         err_email.innerText = "Email is required";
-    } else if (!email.value.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(?:\.[a-zA-Z0-9-]+)*$/g)
+    } else if (
+        !email.value.match(
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(?:\.[a-zA-Z0-9-]+)*$/g
+        )
     ) {
         email.classList.remove("is-valid");
         email.classList.add("is-invalid");
@@ -129,7 +254,9 @@ const validate_phoneNumber = (phoneNumber) => {
         phoneNumber.classList.remove("is-valid");
         phoneNumber.classList.add("is-invalid");
         err_phoneNumber.innerText = "Phone Number is required";
-    } else if (!phoneNumber.value.match(/^(((\+8801)|(01))[3-9]\d{1}[0-9]\d{6})$/g)) {
+    } else if (
+        !phoneNumber.value.match(/^(((\+8801)|(01))[3-9]\d{1}[0-9]\d{6})$/g)
+    ) {
         phoneNumber.classList.remove("is-valid");
         phoneNumber.classList.add("is-invalid");
         err_phoneNumber.innerText = "Invalid Phone Number";
@@ -168,8 +295,11 @@ const validate_password = (password) => {
 };
 
 const validate_cpassword = (cpassword) => {
-    const err_cpassword = cpassword.parentNode.querySelector(".invalid-feedback");
-    const password = cpassword.parentNode.parentNode.parentNode.querySelector("input[name=password]").value;
+    const err_cpassword =
+        cpassword.parentNode.querySelector(".invalid-feedback");
+    const password = cpassword.parentNode.parentNode.parentNode.querySelector(
+        "input[name=password]"
+    ).value;
 
     console.log(password);
 
@@ -192,10 +322,8 @@ const validate_cpassword = (cpassword) => {
 };
 
 const validate_registration = (form) => {
-
     // validate_gender(form['gender']);
     // console.log(form['gender']);
-
 };
 
 // const validate_gender = (genders) => {
@@ -376,7 +504,7 @@ const validate_subdistrict = (subdistrict) => {
     //     subdistrict.classList.remove("is-valid");
     //     subdistrict.classList.add("is-invalid");
     //     err_subdistrict.innerText = "Subdistrict is required";
-    // } else 
+    // } else
     if (!subdistrict.value.match(/^[\w\s\-\.]*$/g)) {
         subdistrict.classList.remove("is-valid");
         subdistrict.classList.add("is-invalid");
@@ -578,26 +706,3 @@ function initialize() {
         DarkReader.disable();
     }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    initialize();
-
-    const form = getElemById("deleteuserform");
-    // const canvasmenu = getElemById("canvasmenu");
-    const delete_button = getElemById("deleteuser");
-    const dark_mode_1_button = getElemById("dark_mode_1");
-    const dark_mode_2_button = getElemById("dark_mode_2");
-
-    if (delete_button) {
-        delete_button.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            if (confirm("Are you sure you want to delete ?")) {
-                form.submit();
-            }
-        });
-    }
-
-    toggleDarkMode(dark_mode_1_button);
-    toggleDarkMode(dark_mode_2_button);
-});
