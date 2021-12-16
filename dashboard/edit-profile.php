@@ -102,7 +102,7 @@ if (!_get_is_logged_in()) {
                         <div class="row mb-3 has-validation">
                             <label for="degree" class="col-sm-3 col-form-label">Degree</label>
                             <div class="col-sm-9">
-                                <input id="degree" type="text" name="degree" class="form-control<?php echo _get_messages_css_class_name('degree'); ?>" value="<?php echo _get_session_val('degree'); ?>" placeholder="e.g Moddho Pikepara">
+                                <input id="degree" type="text" name="degree" class="form-control<?php echo _get_messages_css_class_name('degree'); ?>" value="<?php echo _get_session_val('degree'); ?>" placeholder="e.g MBBS, FCPS (Medicine), PHD (USA)">
 
                                 <?php if (_get_messages_errors('degree')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('degree'); ?></div><?php endif; ?>
                             </div>
@@ -115,7 +115,7 @@ if (!_get_is_logged_in()) {
                         <div class="row mb-3 has-validation">
                             <label for="specialization" class="col-sm-3 col-form-label">Specialization</label>
                             <div class="col-sm-9">
-                                <input id="specialization" type="text" name="specialization" class="form-control<?php echo _get_messages_css_class_name('specialization'); ?>" value="<?php echo _get_session_val('specialization'); ?>" placeholder="e.g Moddho Pikepara">
+                                <input id="specialization" type="text" name="specialization" class="form-control<?php echo _get_messages_css_class_name('specialization'); ?>" value="<?php echo _get_session_val('specialization'); ?>" placeholder="e.g Cardiology">
 
                                 <?php if (_get_messages_errors('specialization')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('specialization'); ?></div><?php endif; ?>
                             </div>
@@ -128,7 +128,7 @@ if (!_get_is_logged_in()) {
                         <div class="row mb-3 has-validation">
                             <label for="schedule" class="col-sm-3 col-form-label">Schedule</label>
                             <div class="col-sm-9">
-                                <input id="schedule" type="text" name="schedule" class="form-control<?php echo _get_messages_css_class_name('schedule'); ?>" value="<?php echo _get_session_val('schedule'); ?>" placeholder="e.g Moddho Pikepara">
+                                <input id="schedule" type="text" name="schedule" class="form-control<?php echo _get_messages_css_class_name('schedule'); ?>" value="<?php echo _get_session_val('schedule'); ?>" placeholder="e.g Sun - Thu - 11:00 AM - 05:00 PM">
 
                                 <?php if (_get_messages_errors('schedule')) : ?><div class="invalid-feedback"><?php echo _get_messages_errors('schedule'); ?></div><?php endif; ?>
                             </div>
