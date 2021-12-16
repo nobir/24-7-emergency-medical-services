@@ -237,6 +237,89 @@ const confirmDelete = (event, delete_button) => {
     }
 };
 
+const confirmReject = (event, reject_button) => {
+    event.preventDefault();
+
+    if (reject_button) {
+        if (confirm("Are you sure you want to reject?")) {
+            window.location.href = reject_button.getAttribute("href");
+        } else {
+            return false;
+        }
+    }
+};
+
+const searchAppointment = (event, form) => {
+    // console.log(event, form);
+
+    // event.preventDefault();
+    // console.log(form['name'].value);
+    // console.log(form['email'].value);
+
+    let name = form["name"];
+    let email = form["email"];
+
+    let err_email = email.parentNode.querySelector(".invalid-feedback");
+
+    let request = $.post(
+        window.location.origin +
+            "/Project/controllers/SearchAppointmentAJAXController.php",
+        {
+            name: name.value.trim(),
+            email: email.value.trim(),
+            searchappointmentajax: "true",
+        }
+    );
+
+    request.done((response) => {
+        // console.log(JSON.parse(response).data.appointments);
+        let messages = JSON.parse(response);
+        let has_err = false;
+
+        // console.log(email.parentNode.querySelector(".invalid-feedback"));
+
+        if (messages.data.email) {
+            email.classList.remove("is-invalid");
+            email.classList.add("is-valid");
+            err_email.innerText = "";
+        } else if (messages.errors.email) {
+            email.classList.remove("is-valid");
+            email.classList.add("is-invalid");
+            err_email.innerText = messages.errors.email;
+            has_err = true;
+        }
+
+        if (!has_err) {
+            let html = ``;
+
+            if (messages.data.appointments) {
+                messages.data.appointments.forEach((appointment) => {
+                    html += `
+                    <tr>
+                        <td>${appointment.p_name}</td>
+                        <td>${appointment.p_email}</td>
+                        <td>${appointment.p_phone}</td>
+                        <td>${appointment.ap_reason}</td>
+                        <td class="text-center">
+                            <a href="../../controllers/RejectAppointmentController.php?id=${appointment.ap_id}" class="btn btn-danger mb-3" onclick="confirmReject(event, this);">Reject</a>
+                            <a href="../../controllers/AcceptAppointmentController.php?id=${appointment.ap_id}" class="btn btn-success mb-3">Accept</a>
+                        </td>
+                    </tr>
+                `;
+                });
+            } else {
+                html = `
+                    <tr class="text-center">
+                        <td colspan="6">No Appointments Found</td>
+                    </tr>
+                `;
+            }
+
+            $("#appointments-data").html(html);
+        }
+    });
+};
+
 /**
  *
  * Validation Controller
