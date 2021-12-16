@@ -21,7 +21,7 @@ if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
 
     setcookie('email', '', time() - _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
-    // setcookie('token', '', time() - _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+    setcookie('expire', '', time() - _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
     setcookie('utype', '', time() - _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
 }
 

@@ -45,6 +45,9 @@ defined("_DIRECT_ACCESS") or exit("<h1>Your are not allowed</h1>");
                         <div>
                             <span class="text-white fs-6">Logged in as <a href="<?php echo _get_url("dashboard/view-profile.php"); ?>" class="list-group-item d-inline text-<?php echo _CONFIG['THEME_COLOR']; ?> rounded p-1"><?php echo ucfirst(strtok(_get_session_val("name"), " ")); ?></a></span>
                         </div>
+                        <div>
+                            <?php if (isset($_COOKIE['expire']) && !empty($_COOKIE['expire'])) : ?><span class="text-white fs-6">Expire in: <?php echo get_expire_time(); ?></span><?php endif; ?>
+                        </div>
 
                     <?php endif; ?>
                 </div>

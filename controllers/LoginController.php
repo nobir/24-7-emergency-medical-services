@@ -193,7 +193,7 @@ if (isset($_POST['login'])) {
                     $params = session_get_cookie_params();
 
                     setcookie('email', _get_session_val('email'), time() + _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
-                    // setcookie('token', _get_session_val('password'), time() + _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+                    setcookie('expire', time() + _CONFIG['EXPIRED'], time() + _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
                     setcookie('utype', _get_session_val('utype'), time() + _CONFIG['EXPIRED'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
                 }
 

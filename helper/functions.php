@@ -543,3 +543,15 @@ function _success_unsuccess_messages()
 
     }
 }
+
+function get_expire_time()
+{
+    // $time_second = (($_COOKIE['expire'] - time()) / (60)) - 5 * 24 * 60;
+    $time_second = (($_COOKIE['expire'] - time()) / (60));
+    if($time_second > (60 * 24)){
+        return round($time_second / (60 * 24)) . " days";
+    } else if($time_second < (60 * 24)) {
+        return round($time_second / 60) . " hours";
+    }
+    return $time_second;
+}
