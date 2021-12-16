@@ -82,18 +82,18 @@ $doctor_menus = [
         "title"     => "View Appointments",
         "path"      => "users/doctor/view-appointments.php",
     ],
-    [
-        "title"     => "Add Scheduled",
-        "path"      => "users/doctor/add-scheduled.php",
-    ],
-    [
-        "title"     => "Edit Scheduled",
-        "path"      => "users/doctor/edit-scheduled.php",
-    ],
-    [
-        "title"     => "Delete Scheduled",
-        "path"      => "users/doctor/delete-scheduled.php",
-    ],
+    // [
+    //     "title"     => "Add Scheduled",
+    //     "path"      => "users/doctor/add-scheduled.php",
+    // ],
+    // [
+    //     "title"     => "Edit Scheduled",
+    //     "path"      => "users/doctor/edit-scheduled.php",
+    // ],
+    // [
+    //     "title"     => "Delete Scheduled",
+    //     "path"      => "users/doctor/delete-scheduled.php",
+    // ],
     [
         "title"     => "Appointments History",
         "path"      => "users/doctor/appointments-history.php",
