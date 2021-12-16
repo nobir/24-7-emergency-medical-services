@@ -112,6 +112,99 @@ class DoctorModel extends Model
             ]
         );
     }
+
+    public static function getAppointments(int $d_id, $name = "", $email = "")
+    {
+        if (empty($name) && !empty($email)) {
+            $query = "SELECT * FROM view_appointmets WHERE (d_id = :d_id AND ap_status = -1) AND p_email = :p_email";
+
+            return parent::get(
+                $query,
+                [
+                    ":p_email"      => $email,
+                    ":d_id"         => $d_id
+                ]
+            );
+        } else if (!empty($name) && empty($email)) {
+            $query = "SELECT * FROM view_appointmets WHERE (d_id = :d_id AND ap_status = -1) AND p_name LIKE :p_name";
+
+            return parent::get(
+                $query,
+                [
+                    ":p_name"       => "%$name%",
+                    ":d_id"         => $d_id
+                ]
+            );
+        } else if (!empty($email) && !empty($name)) {
+            $query = "SELECT * FROM view_appointmets WHERE (d_id = :d_id AND ap_status = -1) AND (p_name LIKE :p_name AND p_email = :p_email)";
+
+            return parent::get(
+                $query,
+                [
+                    ":p_name"       => "%$name%",
+                    ":p_email"      => $email,
+                    ":d_id"         => $d_id
+                ]
+            );
+        } else {
+            $query = "SELECT * FROM view_appointmets WHERE (d_id = :d_id AND ap_status = -1)";
+
+            return parent::get(
+                $query,
+                [
+                    ":d_id"         => $d_id
+                ]
+            );
+        }
+    }
+
+    public static function getAllAppointments(int $d_id)
+    {
+        $query = "SELECT * FROM view_appointmets WHERE d_id = :d_id AND ap_status = -1";
+
+        return parent::get(
+            $query,
+            [
+                ":d_id"          => $d_id
+            ]
+        );
+    }
+
+    public static function getAllAppointmentHistopy(int $d_id)
+    {
+        $query = "SELECT * FROM view_appointmets WHERE d_id = :d_id AND ap_status != -1";
+
+        return parent::get(
+            $query,
+            [
+                ":d_id"          => $d_id
+            ]
+        );
+    }
+
+    public static function rejectAppointment(int $ap_id)
+    {
+        $query = "UPDATE ems_appointments SET ap_status = 0 WHERE ap_id = :ap_id";
+
+        return parent::execute(
+            $query,
+            [
+                ":ap_id"         => $ap_id
+            ]
+        );
+    }
+
+    public static function acceptAppointment(int $ap_id)
+    {
+        $query = "UPDATE ems_appointments SET ap_status = 1 WHERE ap_id = :ap_id";
+
+        return parent::execute(
+            $query,
+            [
+                ":ap_id"         => $ap_id
+            ]
+        );
+    }
 }
 
 // _var_dump(DoctorModel::isDuplicateEmail('mohib@doctor.com'));
