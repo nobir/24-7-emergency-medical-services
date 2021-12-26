@@ -9,7 +9,7 @@
 ---
 
 ## Supervisor
-- Rashidul Hasan Nabil (Sir)
+- Rashidul Hasan Nabil (Sir) ([Profile](https://cs.aiub.edu/profile/rashidul))
 
 
 ## Technologies
